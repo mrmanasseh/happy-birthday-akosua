@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday ❤️</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-blue: #0093E9;
+            --secondary-blue: #80D0C7;
+        }
+
+        body {
+            background: #f0f7ff;
+            font-family: 'Poppins', sans-serif;
+            color: #2c3e50;
+            overflow-x: hidden;
+        }
+
+        /* Hero Carousel Logic */
+        #heroCarousel, .carousel-inner, .carousel-item {
+            height: 100vh;
+            width: 100%;
+        }
+
+        .carousel-item {
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+
+        .carousel-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.45);
+        }
+
+        .carousel-caption {
+            bottom: 15%;
+            z-index: 10;
+        }
+
+        .carousel-caption h1 {
+            position: relative;
+            bottom: 20vh;
+            font-size: clamp(2.2rem, 8vw, 3.8rem);
+            font-weight: 700;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            margin-bottom: 25px;
+        }
+
+        /* Mobile Responsive Buttons */
+        .btn-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        @media (min-width: 576px) {
+            .btn-stack { flex-direction: row; justify-content: center; }
+        }
+
+        .btn-custom {
+            background: white;
+            color: var(--primary-blue);
+            border-radius: 50px;
+            padding: 14px 35px;
+            font-weight: 600;
+            border: 2px solid white;
+            width: 100%;
+            max-width: 280px;
+            transition: 0.3s;
+        }
+
+        .btn-outline-custom {
+            background: transparent;
+            color: white;
+            border-radius: 50px;
+            padding: 14px 35px;
+            font-weight: 600;
+            border: 2px solid white;
+            width: 100%;
+            max-width: 280px;
+            transition: 0.3s;
+        }
+
+        /* Cards & Sections */
+        .message-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 147, 233, 0.1);
+        }
+
+        .reason-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            height: 100%;
+            transition: 0.3s;
+        }
+
+        .reason-card:hover {
+            transform: translateY(-10px);
+            border-bottom: 4px solid var(--primary-blue);
+        }
+
+        .gallery-img {
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            object-fit: cover;
+            height: 250px;
+            width: 100%;
+        }
+
+        /* Video Section Styling */
+        .video-wrapper {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            cursor: pointer;
+            background: #000;
+        }
+
+        video {
+            width: 100%;
+            display: block;
+            max-height: 500px;
+            object-fit: cover;
+        }
+
+        .video-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--primary-blue);
+            transition: 0.3s;
+            z-index: 2;
+        }
+
+        .video-wrapper:hover .video-play-btn {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: #fff;
+        }
+
+        #hiddenMessage {
+            display: none;
+            font-size: clamp(1.4rem, 5vw, 2.2rem);
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+
+        footer {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            padding: 80px 0;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<audio id="bgMusic" loop>
+    <source src="media/video/Moses%20Bliss%20-%20For%20Life%20(Mp3%20&%20Lyrics).mp3" type="audio/mpeg">
+</audio>
+
+<header id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active" style="background-image: url('media/pictures/photo_2026-03-24_00-54-31.jpg');">
+            <div class="carousel-overlay"></div>
+            <div class="carousel-caption animate__animated animate__fadeInUp">
+                <h1>Happy Birthday, Mio Tesero ❤️</h1>
+                <div class="btn-stack">
+                    <button class="btn btn-custom shadow" onclick="startExperience()">Start the Surprise 💖</button>
+                    <button class="btn btn-outline-custom" onclick="toggleMusic()">🎵 Play Music</button>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item" style="background-image: url('media/pictures/photo_2026-03-24_00-54-14.jpg');">
+            <div class="carousel-overlay"></div>
+            <div class="carousel-caption animate__animated animate__fadeInUp">
+                <h1>Every Day is a Gift With You ❤️</h1>
+                <div class="btn-stack">
+                    <button class="btn btn-custom" onclick="startExperience()">Start the Surprise 💖</button>
+                    <button class="btn btn-outline-custom" onclick="toggleMusic()">🎵 Play Music</button>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item" style="background-image: url('media/pictures/photo_2026-03-24_00-54-19.jpg');">
+            <div class="carousel-overlay"></div>
+            <div class="carousel-caption animate__animated animate__fadeInUp">
+                <h1>To Many More Years Together ❤️</h1>
+                <div class="btn-stack">
+                    <button class="btn btn-custom" onclick="startExperience()">Start the Surprise 💖</button>
+                    <button class="btn btn-outline-custom" onclick="toggleMusic()">🎵 Play Music</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="py-5 mt-5" id="message" data-aos="fade-up">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <div class="card message-card p-4 p-md-5 border-0 shadow-lg">
+                    <h2 style="color: var(--primary-blue);" class="mb-4">My Birthday Wish For You...</h2>
+                    <p id="typingText" class="fs-5 lh-lg"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-white">
+    <div class="container text-center">
+        <h2 class="mb-5" style="color: var(--primary-blue);" data-aos="zoom-in">Things I Love About You ✨</h2>
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="reason-card">
+                    <h3>Your Smile 😊</h3>
+                    <p>It's the most beautiful thing I've ever seen and it lights up my world.</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="reason-card">
+                    <h3>Your Kindness 🕊️</h3>
+                    <p>You have a soul that is pure and a heart that is incredibly large.</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="reason-card">
+                    <h3>Your Soul ✨</h3>
+                    <p>I am grateful for every moment we share and every laugh we have.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container text-center">
+        <h2 style="color: var(--primary-blue);" class="mb-5" data-aos="fade-down">Our Beautiful Memories 📸</h2>
+
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-md-3" data-aos="zoom-in"><img src="media/pictures/photo_2026-03-24_00-54-07.jpg" class="gallery-img"></div>
+            <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="100"><img src="media/pictures/photo_2026-03-24_00-54-34.jpg" class="gallery-img"></div>
+            <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="200"><img src="media/pictures/photo_2026-03-24_00-54-46.jpg" class="gallery-img"></div>
+            <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="300"><img src="media/pictures/photo_2026-03-24_00-54-44.jpg" class="gallery-img"></div>
+            <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="300"><img src="media/pictures/photo_2026-03-24_02-16-44.jpg" class="gallery-img"></div>
+            <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="300"><img src="media/pictures/photo_2026-03-24_00-54-42.jpg" class="gallery-img"></div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-12" data-aos="fade-up">
+                <div class="video-wrapper" onclick="togglePlayVideo()">
+                    <div id="playOverlay" class="video-play-btn">▶</div>
+                    <video id="memoryVideo" playsinline poster="media/pictures/photo_2026-03-24_01-55-25.jpg">
+                        <source src="media/video/video_2026-03-24_01-52-15.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 text-center bg-white">
+    <div class="container py-5" data-aos="flip-up">
+        <h2 class="mb-4" style="color: var(--primary-blue);">Before You Go... 🎁</h2>
+        <button class="btn btn-primary btn-lg rounded-pill px-5 shadow animate__animated animate__pulse animate__infinite" onclick="celebrate()">Click to Reveal My Secret</button>
+        <div id="hiddenMessage" class="mt-5 animate__animated animate__heartBeat animate__infinite">
+            I love you more than words can explain ❤️
+        </div>
+    </div>
+</section>
+
+<footer class="text-center text-white">
+    <div class="container">
+        <h2 class="display-6">Happy Birthday, Akosua!</h2>
+        <p class="opacity-75">Always Yours, Manasseh</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+<script>
+    AOS.init({ duration: 1000, once: true });
+
+    const messageText = "You are one of the most amazing people in my life, and I feel so blessed to have you. Your love, your smile, and your presence mean more to me than I can ever fully explain.\n\n" +
+        "Thank you for being you. You are; so kind, so genuine, and so special. You make my world better in ways you may not even realize.\n\n" +
+        "As you celebrate your birthday, I pray that this new year brings you joy, peace, favor, and everything your heart truly desires. May your days be filled with laughter, your nights with rest, and your life with beautiful moments.\n" +
+        "Happy Birthday to you, Akosua, you mean so much to me.";
+    let index = 0;
+    let typingStarted = false;
+
+    function typeEffect() {
+        if (index < messageText.length) {
+            document.getElementById("typingText").innerHTML += messageText.charAt(index);
+            index++;
+            setTimeout(typeEffect, 45);
+        }
+    }
+
+    function startExperience() {
+        document.getElementById("message").scrollIntoView({ behavior: "smooth" });
+        const music = document.getElementById("bgMusic");
+        music.play().catch(e => console.log("Audio requires interaction first."));
+
+        if (!typingStarted) {
+            setTimeout(typeEffect, 800);
+            typingStarted = true;
+        }
+    }
+
+    // Video Toggle Function
+    function togglePlayVideo() {
+        const video = document.getElementById("memoryVideo");
+        const overlay = document.getElementById("playOverlay");
+        const music = document.getElementById("bgMusic");
+
+        if (video.paused) {
+            video.play();
+            overlay.style.display = "none";
+            // Pause background music so she can hear the video
+            music.pause();
+        } else {
+            video.pause();
+            overlay.style.display = "flex";
+            // Optional: Resume background music when video pauses
+            music.play();
+        }
+    }
+
+    function celebrate() {
+        const msg = document.getElementById("hiddenMessage");
+        msg.style.display = "block";
+        msg.scrollIntoView({ behavior: "smooth" });
+
+        const duration = 5 * 1000;
+        const animationEnd = Date.now() + duration;
+        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+        function randomInRange(min, max) { return Math.random() * (max - min) + min; }
+
+        const interval = setInterval(function() {
+            const timeLeft = animationEnd - Date.now();
+            if (timeLeft <= 0) return clearInterval(interval);
+
+            const particleCount = 50 * (timeLeft / duration);
+            confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+            confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+        }, 250);
+    }
+
+    function toggleMusic() {
+        const music = document.getElementById("bgMusic");
+        music.paused ? music.play() : music.pause();
+    }
+</script>
+
+</body>
+</html>
